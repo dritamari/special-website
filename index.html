@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For You</title>
+<style>
+body{
+    background:#ffd6e7;
+    font-family:Arial;
+    text-align:center;
+    margin:0;
+    overflow:hidden;
+}
+
+/* FLOATING HEARTS */
+.hearts{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    overflow:hidden;
+}
+.hearts span{
+    position:absolute;
+    font-size:20px;
+    animation:float 10s linear infinite;
+    bottom:-50px;
+}
+.hearts span:nth-child(1){left:10%; animation-duration:8s;}
+.hearts span:nth-child(2){left:25%; animation-duration:12s;}
+.hearts span:nth-child(3){left:40%; animation-duration:10s;}
+.hearts span:nth-child(4){left:60%; animation-duration:9s;}
+.hearts span:nth-child(5){left:75%; animation-duration:11s;}
+.hearts span:nth-child(6){left:90%; animation-duration:7s;}
+
+@keyframes float{
+    0%{ transform:translateY(0); opacity:1; }
+    100%{ transform:translateY(-100vh); opacity:0; }
+}
+
+/* LETTER PAGE */
+#letterPage{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+.letter{
+    width:300px;
+    height:200px;
+    background:white;
+    border-radius:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+.heart{
+    font-size:60px;
+    cursor:pointer;
+}
+
+/* CONTENT PAGE */
+#contentPage{
+    display:none;
+    padding:40px;
+    position:relative;
+}
+.gallery img{
+    width:200px;
+    margin:15px;
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+#quoteBox{
+    margin-top:20px;
+    font-size:22px;
+    color:#444;
+    min-height:40px;
+}
+.topText{
+    position:absolute;
+    width:100%;
+    text-align:center;
+    color:#333;
+    font-weight:bold;
+    text-shadow:1px 1px 2px #fff;
+}
+#letterPage .topText{
+    top:20px;
+    font-size:20px;
+}
+#contentPage .topText{
+    top:10px;
+    font-size:18px;
+}
+</style>
+</head>
+<body>
+
+<!-- FLOATING HEARTS -->
+<div class="hearts">
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+</div>
+
+<!-- LETTER PAGE -->
+<div id="letterPage">
+    <div class="letter">
+        <div class="heart" onclick="openLetter()">❤️</div>
+    </div>
+    <p class="topText">Click the heart</p>
+</div>
+
+<!-- CONTENT PAGE -->
+<div id="contentPage">
+    <h1>Our Memories</h1>
+    <h2>Click all the photos</h2>
+    <div class="gallery">
+        <img src="photo1.jpeg" onclick="showQuote(0); playAudio();">
+        <img src="photo2.jpeg" onclick="showQuote(1); playAudio();">
+        <img src="photo3.jpeg" onclick="showQuote(2); playAudio();">
+    </div>
+    <div id="quoteBox"></div>
+</div>
+
+<!-- AUDIO -->
+<audio id="bgSong" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function openLetter(){
+    document.getElementById("letterPage").style.display="none";
+    document.getElementById("contentPage").style.display="block";
+}
+
+const quotes = [
+   "May the bridges I burn light the way.",
+   "Happy Birthday to the best person I have met during my uni time!",
+   "I love everything about you even your angry face."
+];
+
+function showQuote(index){
+    const box = document.getElementById("quoteBox");
+    box.style.opacity = 0;
+    setTimeout(()=>{
+        box.innerText = quotes[index];
+        box.style.opacity = 1;
+    }, 200);
+}
+
+function playAudio(){
+    var song = document.getElementById("bgSong");
+    song.pause();
+    song.currentTime = 0;
+    song.play();
+}
+</script>
+
+</body>
+</html>
